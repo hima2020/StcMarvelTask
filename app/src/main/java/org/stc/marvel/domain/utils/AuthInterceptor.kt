@@ -24,6 +24,7 @@ class AuthInterceptor : Interceptor {
     }
 
     private fun generateMDFive(timeStamp: String): String {
+        System.loadLibrary("native_lib")
         val message = timeStamp + DataProvider.getPrivateKey() + DataProvider.getPublicKey()
         val md = MessageDigest.getInstance("MD5")
         val hash = md.digest(message.toByteArray())
