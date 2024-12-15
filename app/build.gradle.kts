@@ -81,44 +81,28 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    // implementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
-    //For runBlockingTest, CoroutineDispatcher etc.
     testImplementation(libs.kotlinx.coroutines.test)
-    //For InstantTaskExecutorRule
     testImplementation(libs.androidx.core.testing)
-    // Core library
     androidTestImplementation(libs.androidx.core)
     implementation(libs.lottie.compose)
     implementation(libs.shimmer.compose)
-    // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestUtil(libs.androidx.test.orchestrator)
-
-
-
-    // moshi
     implementation(libs.converter.moshi)
-    //noinspection KaptUsageInsteadOfKsp
     ksp(libs.moshi.kotlin.codegen)
-
     implementation(libs.adapter.rxjava3)
-
-
-    // hashing
     implementation (libs.xercesimpl)
     implementation (libs.jaxb.api)
-
-
-// Assertions
+    testImplementation(libs.mockito.core.v451)
+    testImplementation(libs.kotlin.mockito.kotlin)
+    testImplementation (libs.androidx.paging.testing)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.truth)
     androidTestImplementation(libs.google.test.truth)
-
-// Espresso dependencies
     androidTestImplementation(libs.test.espresso.core)
     androidTestImplementation(libs.test.espresso.contrib)
     androidTestImplementation(libs.test.espresso.intents)

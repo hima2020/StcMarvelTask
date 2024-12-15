@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     init {
         loadCharacters()
     }
-    private fun loadCharacters() {
+     fun loadCharacters() {
         viewModelScope.launch {
             repository.searchCharacters(10, 0)
                 .cachedIn(viewModelScope)
