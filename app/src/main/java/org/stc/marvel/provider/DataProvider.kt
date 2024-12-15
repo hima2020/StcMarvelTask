@@ -1,6 +1,6 @@
 package org.stc.marvel.provider
 
-object DataProivider {
+object DataProvider {
     init {
         System.loadLibrary("native_lib")
     }
