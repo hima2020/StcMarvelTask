@@ -19,6 +19,7 @@ object NetworkModule {
 
     @Provides
     fun provideMarvelService(okHttpClient: OkHttpClient): ApiService {
+        System.loadLibrary("native_lib")
         val retrofit = Retrofit.Builder()
             .baseUrl(DataProvider.getBaseUrl())
             .client(okHttpClient)

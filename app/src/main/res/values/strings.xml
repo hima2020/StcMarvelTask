@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Marvel</string>
+    <string name="retry">Retry</string>
+    <string name="network_error_message">Please Check Your Internet connection</string>
+    <string name="something_went_wrong">SomeThing Went Wrong</string>
 </resources>

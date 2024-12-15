@@ -2,7 +2,7 @@ package org.stc.marvel.provider
 
 object DataProvider {
     init {
-        System.loadLibrary("native_lib")
+        System.loadLibrary("native_lip")
     }
 
     // Declare native methods
