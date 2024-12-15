@@ -22,9 +22,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.rememberAsyncImagePainter
+import com.google.gson.Gson
 import org.stc.marvel.R
 import org.stc.marvel.custom.CustomTextDrawer
 import org.stc.marvel.data.model.CharacterItem
+import org.stc.marvel.ui.navigation.NavigationScreens
 
 @Composable
 fun CharacterItem(
@@ -36,6 +38,11 @@ fun CharacterItem(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clickable {
+                navController.navigate(
+                    NavigationScreens.Details.screenRoute + "?character=${
+                        Gson().toJson(character)
+                    }"
+                )
             }
     ) {
 
