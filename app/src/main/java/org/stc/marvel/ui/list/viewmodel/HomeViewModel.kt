@@ -17,6 +17,7 @@ class HomeViewModel @Inject constructor(
     private val repository: MarvelRepository
 ) : ViewModel() {
 
+    var isFirstLoading = true
     private val _characterDetails = MutableStateFlow<CharacterItem?>(null)
     val characterDetails: StateFlow<CharacterItem?> get() = _characterDetails
 

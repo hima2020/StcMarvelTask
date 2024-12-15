@@ -1,10 +1,10 @@
 package org.stc.marvel.ui.list.view
 
+import androidx.annotation.ColorRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -51,11 +52,26 @@ fun HomeScreen(
         ) {
             when {
                 characters.loadState.refresh is LoadState.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentSize(Alignment.Center)
-                    )
+                    if (viewModel.isFirstLoading) {
+                        Box(modifier = Modifier.fillMaxSize().background(color = colorResource(id = R.color.splash_color))) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_splash_screen),
+                                contentDescription = "Marvel Logo",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .wrapContentSize(Alignment.Center)
+                            )
+                        }
+
+                        viewModel.isFirstLoading = false
+                    } else {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .wrapContentSize(Alignment.Center)
+                        )
+                    }
+
                 }
 
                 characters.loadState.refresh is LoadState.Error -> {
