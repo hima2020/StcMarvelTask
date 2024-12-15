@@ -49,9 +49,9 @@ Welcome to the Marvel Characters Explorer app! This application allows users to 
 
 ## Screenshots
 
-| Splash Screen                                    | Character List                                 | Character Details                                    | Comics Preview                                    |
-|--------------------------------------------------|------------------------------------------------|------------------------------------------------------|---------------------------------------------------|
-| ![Splash Screen](screens/screen_splash.jpg) | ![Character List](screens/screen_home.jpg) | ![Character Details](screens/screen_details.png) | ![Comics Preview](screens/screen_preview.png) |
+| Splash Screen                                    | Character List                                 | Character Details                                | Comics Preview                                |
+|--------------------------------------------------|------------------------------------------------|--------------------------------------------------|-----------------------------------------------|
+| ![Splash Screen](screens/screen_splash.jpg) | ![Character List](screens/screen_home.jpg) | ![Character Details](screens/screen_details.jpg) | ![Comics Preview](screens/screen_preview.jpg) |
 
 ---
 
