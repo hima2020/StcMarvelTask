@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +28,7 @@ import org.stc.marvel.R
 import org.stc.marvel.custom.CustomTextDrawer
 import org.stc.marvel.data.model.CharacterItem
 import org.stc.marvel.ui.navigation.NavigationScreens
+import org.stc.marvel.ui.theme.Roboto
 
 @Composable
 fun CharacterItem(
@@ -36,7 +38,7 @@ fun CharacterItem(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 3.dp)
             .clickable {
                 navController.navigate(
                     NavigationScreens.Details.screenRoute + "?character=${
@@ -45,9 +47,14 @@ fun CharacterItem(
                 )
             }
     ) {
+        val painter = rememberAsyncImagePainter(
+            model = "${character.thumbnail?.path}.${character.thumbnail?.extension}",
+            placeholder = painterResource(id = R.drawable.ic_gallery),
+            error = painterResource(id = R.drawable.ic_gallery)
+        )
 
         Image(
-            painter = rememberAsyncImagePainter(model = "${character.thumbnail?.path}.${character.thumbnail?.extension}"),
+            painter = painter,
             contentDescription = character.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -55,7 +62,6 @@ fun CharacterItem(
                 .height(250.dp)
                 .clip(RoundedCornerShape(8.dp))
         )
-
         Box(
             modifier = Modifier
                 .align(Alignment.BottomStart)
@@ -67,10 +73,12 @@ fun CharacterItem(
             Text(
                 text = character.name ?: "",
                 color = colorResource(id = R.color.black),
+                fontFamily = Roboto,
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
         }
     }
 }
+
 

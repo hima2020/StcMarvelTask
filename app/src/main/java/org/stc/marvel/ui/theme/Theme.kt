@@ -15,18 +15,18 @@ import androidx.compose.ui.platform.LocalContext
 val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFBB86FC),
     secondary = Color(0xFF03DAC5),
-    background = Color(0xFF121212),  // Dark background color
+    background = Color(0xFF121212),
     surface = Color(0xFF121212),
-    onBackground = Color.White,  // White text for dark mode
+    onBackground = Color.White,
     onSurface = Color.White
 )
 
 val LightColorScheme = lightColorScheme(
     primary = Color(0xFF6200EE),
     secondary = Color(0xFF03DAC6),
-    background = Color.White,  // Light background color
+    background = Color.White,
     surface = Color.White,
-    onBackground = Color.Black,  // Black text for light mode
+    onBackground = Color.Black,
     onSurface = Color.Black
 )
 

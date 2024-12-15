@@ -23,13 +23,11 @@ class DetailsViewModel @Inject constructor(
 
      var selectedId = 0
 
-    // States for different Marvel data
     var stateComicsMarvel by mutableStateOf(ScreenState())
     var stateSeriesMarvel by mutableStateOf(ScreenState())
     var stateEventsMarvel by mutableStateOf(ScreenState())
     var stateStoriesMarvel by mutableStateOf(ScreenState())
 
-    // Function to handle the flow and fetch data
     private suspend fun fetchData(
         fetchFunction: suspend () -> Flow<NetworkResult<CharachtersResponse>>,
     ): List<CharacterItem> {
@@ -53,7 +51,6 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    // Load Comics
     fun loadComics() {
         if (stateComicsMarvel.items.isEmpty() && stateComicsMarvel.isLoading.not()) {
             viewModelScope.launch {
@@ -68,7 +65,6 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    // Load Series
     fun loadSeries() {
         if (stateSeriesMarvel.items.isEmpty() && stateSeriesMarvel.isLoading.not()) {
             viewModelScope.launch {
@@ -83,7 +79,6 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    // Load Events
     fun loadEvents() {
         if (stateEventsMarvel.items.isEmpty() && stateEventsMarvel.isLoading.not()) {
             viewModelScope.launch {
@@ -98,7 +93,6 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    // Load Stories
     fun loadStories() {
         if (stateStoriesMarvel.items.isEmpty() && stateStoriesMarvel.isLoading.not()) {
             viewModelScope.launch {
@@ -120,8 +114,4 @@ class DetailsViewModel @Inject constructor(
         loadStories()
     }
 
-    // Initialize data loading
-    init {
-
-    }
 }

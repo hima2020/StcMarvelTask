@@ -41,14 +41,13 @@ fun HomeScreen(
 ) {
     val characters = viewModel.characterList.collectAsLazyPagingItems()
 
-    // Get the current background color based on the theme (light or dark)
     val backgroundColor = MaterialTheme.colorScheme.background
 
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
                 .padding(paddingValues)
-                .background(backgroundColor) // Use background color from theme
+                .background(backgroundColor)
         ) {
             when {
                 characters.loadState.refresh is LoadState.Loading -> {
@@ -90,14 +89,12 @@ fun MarvelCharacterList(
     characters: LazyPagingItems<CharacterItem>,
     navController: NavController
 ) {
-    // Get the current background color based on the theme (light or dark)
     val backgroundColor = MaterialTheme.colorScheme.background
 
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor), // Use background color from theme
-        contentPadding = PaddingValues(vertical = 16.dp)
+            .background(backgroundColor),
     ) {
         item {
             Header()
@@ -106,7 +103,7 @@ fun MarvelCharacterList(
         items(characters.itemCount) { index ->
             characters[index]?.let { character ->
                 CharacterItem(character = character, navController = navController)
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(2.dp))
             }
         }
 
@@ -132,7 +129,6 @@ fun MarvelCharacterList(
 
 @Composable
 fun Header() {
-    // Get the current text color based on the theme (light or dark)
     val contentColor = MaterialTheme.colorScheme.onBackground
 
     Row(

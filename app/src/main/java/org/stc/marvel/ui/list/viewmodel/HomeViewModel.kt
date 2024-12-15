@@ -20,7 +20,6 @@ class HomeViewModel @Inject constructor(
     private val _characterDetails = MutableStateFlow<CharacterItem?>(null)
     val characterDetails: StateFlow<CharacterItem?> get() = _characterDetails
 
-    // Correct way to call a suspend function inside ViewModel
     private val _characterList = MutableStateFlow<PagingData<CharacterItem>>(PagingData.empty())
     val characterList: StateFlow<PagingData<CharacterItem>> get() = _characterList
 

@@ -10,7 +10,7 @@ class MarvelPagingSource(
 ) : PagingSource<Int, CharacterItem>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterItem> {
-        val position = params.key ?: 0 // Start with offset 0
+        val position = params.key ?: 0
         return try {
             val response =
                 apiService.getMarvelCharacters(offset = position, limit = params.loadSize)

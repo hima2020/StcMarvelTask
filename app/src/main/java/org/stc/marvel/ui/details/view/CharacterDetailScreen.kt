@@ -17,10 +17,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,6 +49,7 @@ import org.stc.marvel.data.model.PreviewModel
 import org.stc.marvel.ui.details.state.ScreenState
 import org.stc.marvel.ui.details.viewmodel.DetailsViewModel
 import org.stc.marvel.ui.navigation.NavigationScreens
+import org.stc.marvel.ui.theme.Roboto
 
 @Composable
 fun CharacterDetailScreen(
@@ -63,124 +66,140 @@ fun CharacterDetailScreen(
     val imageUrl =
         "${selectedCharacterItem?.thumbnail?.path}.${selectedCharacterItem?.thumbnail?.extension}"
 
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = rememberAsyncImagePainter(model = imageUrl),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .alpha(0.3f)
-                .blur(radius = 20.dp, edgeTreatment = BlurredEdgeTreatment.Rectangle)
-        )
-
+    Scaffold { paddingValues ->
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .alpha(0.8f)
-                .background(color = Color.Black)
-                .blur(radius = 10.dp)
-        )
+                .padding(paddingValues)
+                .background(backgroundColor)
+        ) {
+            Surface(modifier = Modifier.fillMaxSize()) {
+                Image(
+                    painter = rememberAsyncImagePainter(model = imageUrl),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .alpha(0.3f)
+                        .blur(radius = 20.dp, edgeTreatment = BlurredEdgeTreatment.Rectangle)
+                )
 
-        Column {
-            Surface(
-                modifier = Modifier.height(200.dp)
-            ) {
-                Box {
-                    Image(
-                        painter = rememberAsyncImagePainter(model = imageUrl),
-                        contentDescription = selectedCharacterItem?.description,
-                        contentScale = ContentScale.Crop,
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .alpha(0.8f)
+                        .background(color = Color.Black)
+                        .blur(radius = 10.dp)
+                )
+
+                Column {
+                    Surface(
+                        modifier = Modifier.height(200.dp)
+                    ) {
+                        Box {
+                            Image(
+                                painter = rememberAsyncImagePainter(model = imageUrl),
+                                contentDescription = selectedCharacterItem?.description,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp)
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_back),
+                                contentDescription = "",
+                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.background),
+                                contentScale = ContentScale.Inside,
+                                modifier = Modifier
+                                    .padding(start = 15.dp, top = 20.dp)
+                                    .size(20.dp)
+                                    .clickable { navController.navigateUp() }
+                            )
+                        }
+                    }
+
+                    LazyColumn(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                    )
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_back),
-                        contentDescription = "",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.background),
-                        contentScale = ContentScale.Inside,
-                        modifier = Modifier
-                            .padding(start = 25.dp, top = 40.dp)
-                            .size(30.dp)
-                            .clickable { navController.navigateUp() }
-                    )
-                }
-            }
+                            .fillMaxSize()
+                            .padding(16.dp, bottom = 80.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp, bottom = 80.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
+                        item {
+                            Text(
+                                "Name",
+                                color = Color.Red,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = Roboto,
+                                modifier = Modifier.padding(top = 20.dp)
+                            )
+                            Text(
+                                text = selectedCharacterItem?.name ?: "",
+                                color = Color.White,
+                                fontFamily = Roboto,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
 
-                // Name Section
-                item {
-                    Text("Name", color = Color.Red, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                    Text(
-                        text = selectedCharacterItem?.name ?: "",
-                        color = Color.White,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                        if (!selectedCharacterItem?.description.isNullOrEmpty()) {
+                            item {
+                                Text(
+                                    "Description",
+                                    color = Color.Red,
+                                    fontFamily = Roboto,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = selectedCharacterItem?.description ?: "",
+                                    color = Color.White,
+                                    fontFamily = Roboto,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
 
-                // Description Section
-                if (!selectedCharacterItem?.description.isNullOrEmpty()) {
-                    item {
-                        Text(
-                            "Description",
-                            color = Color.Red,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = selectedCharacterItem?.description ?: "",
-                            color = Color.White,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        item {
+                            sectionTitle("Comics")
+                        }
+                        item {
+                            marvelSection(
+                                navController,
+                                state = viewModel.stateComicsMarvel,
+                                onRetry = { viewModel.loadComics() }
+                            )
+                        }
+
+                        item { sectionTitle("Series") }
+                        item {
+                            marvelSection(
+                                navController,
+                                state = viewModel.stateSeriesMarvel,
+                                onRetry = { viewModel.loadSeries() }
+                            )
+                        }
+                        item { sectionTitle("Events") }
+                        item {
+                            marvelSection(navController,
+                                state = viewModel.stateEventsMarvel,
+                                onRetry = { viewModel.loadEvents() }
+                            )
+                        }
+                        item { sectionTitle("Stories") }
+                        item {
+                            marvelSection(navController,
+                                state = viewModel.stateStoriesMarvel,
+                                onRetry = { viewModel.loadStories() }
+                            )
+                        }
+                        item { RelatedLinksSection() }
                     }
                 }
-
-                // Comics Section
-                item {
-                    sectionTitle("Comics")
-                }
-                item {
-                    marvelSection(
-                        navController,
-                        state = viewModel.stateComicsMarvel,
-                        onRetry = { viewModel.loadComics() }
-                    )
-                }
-
-                item { sectionTitle("Series") }
-                item {
-                    marvelSection(
-                        navController,
-                        state = viewModel.stateSeriesMarvel,
-                        onRetry = { viewModel.loadSeries() }
-                    )
-                }
-                item { sectionTitle("Events") }
-                item {
-                    marvelSection(navController,
-                        state = viewModel.stateEventsMarvel,
-                        onRetry = { viewModel.loadEvents() }
-                    )
-                }
-                item { sectionTitle("Stories") }
-                item {
-                    marvelSection(navController,
-                        state = viewModel.stateStoriesMarvel,
-                        onRetry = { viewModel.loadStories() }
-                    )
-                }
-                item { RelatedLinksSection() }
             }
         }
+
     }
 }
 
@@ -191,6 +210,7 @@ fun sectionTitle(title: String) {
         color = Color.Red,
         fontSize = 18.sp,
         fontWeight = FontWeight.Bold,
+        fontFamily = Roboto,
         modifier = Modifier.padding(top = 16.dp)
     )
 }
@@ -226,7 +246,9 @@ fun marvelSection(
                 Text(
                     text = "No data available.",
                     color = MaterialTheme.colorScheme.background,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = Roboto
                 )
             }
         }
@@ -247,7 +269,7 @@ fun marvelSection(
                                     for (image in state.items) {
                                         images.add("${image.thumbnail?.path}.${image.thumbnail?.extension}")
                                     }
-                                    Log.d("IMAGESUSERPREVIEW",images.toString())
+                                    Log.d("IMAGESUSERPREVIEW", images.toString())
                                     navController.navigate(
                                         NavigationScreens.Preview.screenRoute + "?preview=${
                                             Gson().toJson(PreviewModel(images.toList()))
@@ -289,7 +311,9 @@ fun RetrySection(
             Text(
                 text = errorMessage,
                 color = MaterialTheme.colorScheme.background,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                fontFamily = Roboto,
+                fontWeight = FontWeight.Medium
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(onClick = onRetry) {
@@ -309,6 +333,7 @@ fun RelatedLinksSection() {
             text = "RELATED LINKS",
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
+            fontFamily = Roboto,
             color = Color.Red
         )
 
@@ -332,6 +357,8 @@ fun RelatedLinkItem(text: String) {
         Text(
             text = text,
             fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = Roboto,
             color = Color.White
         )
 

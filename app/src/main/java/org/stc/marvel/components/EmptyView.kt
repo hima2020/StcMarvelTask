@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.stc.marvel.ui.theme.Roboto
 
 @Composable
 fun EmptyView(message: String) {
@@ -23,6 +24,7 @@ fun EmptyView(message: String) {
         Text(
             text = message,
             color = Color.White,
+            fontFamily = Roboto,
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium
         )

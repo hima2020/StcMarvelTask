@@ -22,9 +22,9 @@ class MarvelsRepositoryImpl(
     ): Flow<PagingData<CharacterItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 10, // Optimize page size for your API response
-                prefetchDistance = 5, // Preload items to improve UX
-                enablePlaceholders = false // Disable placeholders to show a blank space instead
+                pageSize = 10,
+                prefetchDistance = 5,
+                enablePlaceholders = false
             ),
             pagingSourceFactory = { MarvelPagingSource(apiSefvice) }
         ).flow
@@ -33,7 +33,6 @@ class MarvelsRepositoryImpl(
     override suspend fun fetchComics(
         charId: Int
     ) = flow<NetworkResult<CharachtersResponse>> {
-        // emit(NetworkResult.Loading())
         with(apiSefvice.getMarvelCharacterComics(charId)) {
             if (isSuccessful) {
                 emit(NetworkResult.Success(this.body()))
@@ -48,7 +47,6 @@ class MarvelsRepositoryImpl(
     override suspend fun fetchEvents(
         charId: Int
     ) = flow<NetworkResult<CharachtersResponse>> {
-        // emit(NetworkResult.Loading())
         with(apiSefvice.getMarvelCharacterEvents(charId)) {
             if (isSuccessful) {
                 emit(NetworkResult.Success(this.body()))
@@ -63,7 +61,6 @@ class MarvelsRepositoryImpl(
     override suspend fun fetchSeries(
         charId: Int
     ) = flow<NetworkResult<CharachtersResponse>> {
-        // emit(NetworkResult.Loading())
         with(apiSefvice.getMarvelCharacterSeries(charId)) {
             if (isSuccessful) {
                 emit(NetworkResult.Success(this.body()))
@@ -78,7 +75,6 @@ class MarvelsRepositoryImpl(
     override suspend fun fetchStories(
         charId: Int
     ) = flow<NetworkResult<CharachtersResponse>> {
-        // emit(NetworkResult.Loading())
         with(apiSefvice.getMarvelCharacterStories(charId)) {
             if (isSuccessful) {
                 emit(NetworkResult.Success(this.body()))
